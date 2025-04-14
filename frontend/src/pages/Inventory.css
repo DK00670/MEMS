@@ -1,0 +1,26 @@
+.inventory-container {
+    padding: 20px;
+  }
+  
+  .inventory-button {
+    background-color: black;
+    color: white;
+    padding: 10px 20px;
+    margin: 10px 10px 20px 0;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .inventory-section {
+    display: flex;
+    gap: 15px;
+  }
+  
+  .inventory-card {
+    background: #f8f8f8;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+    flex: 1;
+  }
+  

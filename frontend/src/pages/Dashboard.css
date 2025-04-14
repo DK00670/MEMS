@@ -1,0 +1,41 @@
+.dashboard-container {
+    padding: 20px;
+  }
+  
+  .main-action-button {
+    background-color: black;
+    color: white;
+    padding: 10px 20px;
+    margin: 10px 0;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .dashboard-cards {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+  }
+  
+  .card {
+    background: #f8f8f8;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+    flex: 1;
+  }
+  
+  .dashboard-charts {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+  }
+  
+  .chart {
+    background: #ddd;
+    padding: 30px;
+    border-radius: 5px;
+    text-align: center;
+    flex: 1;
+  }
+  
