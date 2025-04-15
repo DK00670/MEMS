@@ -1,28 +1,44 @@
 .sidebar {
-  width: 200px;
-  height: 100vh;
-  background-color: #333;
-  color: #fff;
+  width: 250px;
+  height: 100vh; /* Ensure the sidebar always stretches to the full viewport height */
+  background-color: #1e272e; /* Dark modern background */
+  color: #ffffff;
   padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
 }
 
 .sidebar h2 {
-  font-size: 1.5rem;
-  margin-bottom: 20px;
+  font-size: 1.8rem;
+  margin-bottom: 30px;
+  color: #00cec9; /* Accent color for the title */
 }
 
 .sidebar nav {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  width: 100%;
 }
 
 .sidebar a {
-  color: #fff;
+  color: #dfe6e9;
   text-decoration: none;
-  padding: 10px;
+  padding: 12px 15px;
+  margin: 5px 0;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
 }
 
 .sidebar a:hover {
-  background-color: #444;
+  background-color: #576574; /* Hover effect */
+  color: #ffffff;
+}
+
+.sidebar a.active {
+  background-color: #00cec9; /* Highlight active link */
+  color: #2d3436; /* Change text color for active link */
+  font-weight: bold; /* Optional: Make the active link bold */
 }

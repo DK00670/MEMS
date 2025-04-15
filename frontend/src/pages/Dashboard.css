@@ -1,41 +1,99 @@
 .dashboard-container {
-    padding: 20px;
-  }
-  
-  .main-action-button {
-    background-color: black;
-    color: white;
-    padding: 10px 20px;
-    margin: 10px 0;
-    border: none;
-    cursor: pointer;
-  }
-  
-  .dashboard-cards {
-    display: flex;
-    gap: 15px;
-    margin-top: 20px;
-  }
-  
-  .card {
-    background: #f8f8f8;
-    padding: 20px;
-    border-radius: 5px;
-    text-align: center;
-    flex: 1;
-  }
-  
-  .dashboard-charts {
-    display: flex;
-    gap: 20px;
-    margin-top: 20px;
-  }
-  
-  .chart {
-    background: #ddd;
-    padding: 30px;
-    border-radius: 5px;
-    text-align: center;
-    flex: 1;
-  }
-  
+  padding: 20px;
+  background-color: #f5f6fa; /* Light modern background */
+  min-height: 100vh;
+  font-family: 'Arial', sans-serif;
+}
+
+.dashboard-title {
+  font-size: 2.5rem;
+  color: #2d3436;
+  margin-bottom: 10px;
+}
+
+.dashboard-subtitle {
+  font-size: 1.2rem;
+  color: #636e72;
+  margin-bottom: 30px;
+}
+
+.main-action-button {
+  background-color: #00cec9;
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.main-action-button:hover {
+  background-color: #0984e3;
+}
+
+.dashboard-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.card {
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.card-icon {
+  font-size: 2rem;
+  color: #00cec9;
+}
+
+.card-content h3 {
+  font-size: 1.2rem;
+  color: #2d3436;
+  margin: 0;
+}
+
+.card-content p {
+  font-size: 1rem;
+  color: #636e72;
+  margin: 0;
+}
+
+.dashboard-section-title {
+  font-size: 1.8rem;
+  color: #2d3436;
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+
+.dashboard-charts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.chart {
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.chart h3 {
+  font-size: 1.2rem;
+  color: #2d3436;
+  margin-bottom: 10px;
+}

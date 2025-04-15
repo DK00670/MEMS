@@ -1,0 +1,90 @@
+.production-container {
+    padding: 20px;
+    background-color: #f5f6fa; /* Light modern background */
+    min-height: 100vh;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  .production-title {
+    font-size: 2.5rem;
+    color: #2d3436;
+    margin-bottom: 10px;
+  }
+  
+  .production-subtitle {
+    font-size: 1.2rem;
+    color: #636e72;
+    margin-bottom: 30px;
+  }
+  
+  .production-actions {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 30px;
+  }
+  
+  .production-button {
+    background-color: #00cec9;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .production-button:hover {
+    background-color: #0984e3;
+  }
+  
+  .production-section-title {
+    font-size: 1.8rem;
+    color: #2d3436;
+    margin-top: 40px;
+    margin-bottom: 20px;
+  }
+  
+  .machine-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+  }
+  
+  .machine-card {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .machine-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+  }
+  
+  .machine-icon {
+    font-size: 2rem;
+    color: #00cec9;
+  }
+  
+  .machine-details {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .machine-name {
+    font-size: 1.2rem;
+    color: #2d3436;
+    margin: 0;
+  }
+  
+  .machine-status {
+    font-size: 1rem;
+    color: #636e72;
+    margin: 0;
+  }

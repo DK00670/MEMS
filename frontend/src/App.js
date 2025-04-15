@@ -4,7 +4,7 @@ import Sidebar from './components/Sidebar';
 import Dashboard from './pages/Dashboard';
 import HR from './pages/HR';
 import Inventory from './pages/Inventory';
-
+import Production from './pages/Production';
 import './App.css';
 
 function App() {
@@ -17,6 +17,7 @@ function App() {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/hr" element={<HR />} />
             <Route path="/inventory" element={<Inventory />} />
+            <Route path="/production" element={<Production />} />
           </Routes>
         </div>
       </div>
