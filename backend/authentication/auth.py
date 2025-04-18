@@ -30,7 +30,7 @@ oauth2_bearer = OAuth2PasswordBearer(tokenUrl='auth/token')
 
 class RoleEnum(str, Enum):
     admin = "admin"
-    staff = "staff"
+    user = "user"
 
 #pydantic data validation to test user on registration before submit to db
 #min length 1 for testing not deployment
@@ -38,7 +38,7 @@ class CreateUserRequest(BaseModel):
     email: str = Field(..., min_length=7)
     username: str = Field(..., min_length=1, max_length=100)
     password: str = Field(..., min_length=1)
-    role: RoleEnum = RoleEnum.staff
+    role: RoleEnum = RoleEnum.user
 
 #need for user auth
 class Token(BaseModel):
@@ -89,8 +89,8 @@ async def login_for_access_token(form_data: Annotated[OAuth2PasswordRequestForm,
     if not user:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
                             detail='Could not validate user')
-    token = create_access_token(user.email, user.username, user.id, user.role, timedelta(minutes=20))
-    return {'access_token': token[0], 'token_type': 'bearer'}
+    token = create_access_token(user.id, user.username, user.role, timedelta(minutes=20))
+    return {'access_token': token, 'token_type': 'bearer'}
 
 def authenticate_user(username: str, password: str, db):
     user = db.query(Users).filter(Users.username == username).first()
@@ -100,8 +100,32 @@ def authenticate_user(username: str, password: str, db):
         return False
     return user
 
-def create_access_token(email: str, username: str, user_id: int, role: str, expires_delta: timedelta):
-    encode = {'email': email, 'sub': username, 'id': user_id, 'role': role}
-    expires = datetime.now(timezone.utc) + expires_delta
-    encode.update({'exp': expires})
-    return jwt.encode(encode, SECRET_KEY, algorithm=ALGORITHM)
+def create_access_token(user_id: int, username: str, role: str, expires_delta: timedelta):
+    expire = datetime.now(timezone.utc) + expires_delta
+    payload = {
+        "sub": str(user_id),
+        "username": username,
+        "role": role,
+        "iat": datetime.now(timezone.utc),
+        "exp": expire
+    }
+    return jwt.encode(payload, SECRET_KEY, algorithm=ALGORITHM)
+
+
+async def get_current_user(token: Annotated[str, Depends(oauth2_bearer)]):
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        user_id: int = int(payload.get('sub'))
+        username: str = payload.get('username')
+
+        if user_id is None or username is None:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail='Could not validate user'
+            )
+        return {"id": user_id, "username": username}
+    except JWTError:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail='Could not validate user'
+        )

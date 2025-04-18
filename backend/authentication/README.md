@@ -1,4 +1,4 @@
-add database details e.g. postgresql db to .env (to be kept private)
+add database details e.g. postgresql db to .env (to be kept private with .gitignore file)
 
 local:
 can be run with uvicorn main:app --reload
@@ -8,3 +8,6 @@ docker:
 to run dockerised app through dockerfile
 ensure containerised instance of database and fastapi container are both on the same docker network
 and then run relevant docker commands.
+
+docker-compose:
+to be added later into the project
