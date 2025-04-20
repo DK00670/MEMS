@@ -8,4 +8,4 @@ class Users(Base):
     email = Column(String, unique=True, index=True)
     username = Column(String, unique=True, index=True)
     hashed_password = Column(String)
-    role = Column(String, default="staff")
+    role = Column(String, default="user")
