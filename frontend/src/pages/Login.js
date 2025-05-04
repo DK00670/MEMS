@@ -1,53 +1,75 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import api from '../services/api'; // Axios instance with baseURL
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import AuthService from '../services/auth';
+import './Login.css';
 
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [formData, setFormData] = useState({
+    usernameOrEmail: '', // Changed to handle both username and email
+    password: ''
+  });
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
 
-  const handleLogin = async (e) => {
+  useEffect(() => {
+    if (location.state?.message) {
+      setSuccess(location.state.message);
+    }
+  }, [location]);
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     setError('');
+
     try {
-      const response = await api.post('/auth/login', { email, password });
-      const token = response.data.access_token;
-      localStorage.setItem('token', token);
-      navigate('/dashboard'); // go to dashboard after login
+      await AuthService.login(formData.usernameOrEmail, formData.password);
+      navigate('/dashboard', { replace: true });
     } catch (err) {
-      setError('Invalid email or password');
+      setError(err.message);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div style={{ padding: '60px', maxWidth: '400px', margin: '0 auto' }}>
-      <h2>MEMS ERP Login</h2>
-      <form onSubmit={handleLogin}>
-        {error && <p style={{ color: 'red' }}>{error}</p>}
-        <div style={{ marginBottom: '15px' }}>
-          <label>Email</label><br />
+    <div className="login-container">
+      <h2>Login</h2>
+      {success && <div className="success-message">{success}</div>}
+      {error && <div className="error-message">{error}</div>}
+      <form onSubmit={handleSubmit}>
+        <div className="form-group">
+          <label>Username or Email</label>
           <input
-            type="email"
+            type="text"
+            name="usernameOrEmail"
+            value={formData.usernameOrEmail}
+            onChange={handleChange}
             required
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            style={{ width: '100%', padding: '8px' }}
           />
         </div>
-        <div style={{ marginBottom: '15px' }}>
-          <label>Password</label><br />
+        <div className="form-group">
+          <label>Password</label>
           <input
             type="password"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
             required
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            style={{ width: '100%', padding: '8px' }}
           />
         </div>
-        <button type="submit" style={{ padding: '10px 20px' }}>
-          Login
+        <button type="submit" disabled={loading}>
+          {loading ? 'Logging in...' : 'Login'}
         </button>
       </form>
     </div>

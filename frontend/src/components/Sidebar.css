@@ -42,3 +42,20 @@
   color: #2d3436; /* Change text color for active link */
   font-weight: bold; /* Optional: Make the active link bold */
 }
+
+.logout-button {
+  width: 100%;
+  padding: 12px 15px;
+  margin: 20px 0 5px;
+  background-color: #ff6b6b;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.logout-button:hover {
+  background-color: #ee5253;
+}

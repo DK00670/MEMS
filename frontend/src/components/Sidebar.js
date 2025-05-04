@@ -1,10 +1,17 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import AuthService from '../services/auth';
 import './Sidebar.css';
 
 const Sidebar = () => {
   const location = useLocation();
-  const isLoggedIn = localStorage.getItem('token'); // check if user is authenticated
+  const navigate = useNavigate();
+  const isLoggedIn = AuthService.isAuthenticated();
+
+  const handleLogout = () => {
+    AuthService.logout();
+    navigate('/login');
+  };
 
   return (
     <div className="sidebar">
@@ -38,10 +45,7 @@ const Sidebar = () => {
             </Link>
             <button
               className="logout-button"
-              onClick={() => {
-                localStorage.removeItem('token');
-                window.location.href = '/login';
-              }}
+              onClick={handleLogout}
             >
               Logout
             </button>

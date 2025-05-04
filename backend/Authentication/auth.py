@@ -84,21 +84,22 @@ async def create_user(db: db_dependency,
 
 @router.post("/token", response_model=Token)
 async def login_for_access_token(form_data: Annotated[OAuth2PasswordRequestForm, Depends()],
-                                 Db: db_dependency):
-    user = authenticate_user(form_data.username, form_data.password, Db)
+                                 db: db_dependency):
+    # Try to find user by username first
+    user = db.query(Users).filter(Users.username == form_data.username).first()
     if not user:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
-                            detail='Could not validate user')
+        # If not found, try by email
+        user = db.query(Users).filter(Users.email == form_data.username).first()
+    
+    if not user or not bcrypt_context.verify(form_data.password, user.hashed_password):
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid credentials",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    
     token = create_access_token(user.id, user.username, user.role, timedelta(minutes=20))
     return {'access_token': token, 'token_type': 'bearer'}
-
-def authenticate_user(username: str, password: str, db):
-    user = db.query(Users).filter(Users.username == username).first()
-    if not user:
-        return False
-    if not bcrypt_context.verify(password, user.hashed_password):
-        return False
-    return user
 
 def create_access_token(user_id: int, username: str, role: str, expires_delta: timedelta):
     expire = datetime.now(timezone.utc) + expires_delta
@@ -112,20 +113,21 @@ def create_access_token(user_id: int, username: str, role: str, expires_delta: t
     return jwt.encode(payload, SECRET_KEY, algorithm=ALGORITHM)
 
 
-async def get_current_user(token: Annotated[str, Depends(oauth2_bearer)]):
+async def get_current_user(token: Annotated[str, Depends(oauth2_bearer)], db: Session = Depends(get_db)):
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         user_id: int = int(payload.get('sub'))
-        username: str = payload.get('username')
-
-        if user_id is None or username is None:
+        
+        user = db.query(Users).filter(Users.id == user_id).first()
+        if not user:
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
-                detail='Could not validate user'
+                detail='User not found'
             )
-        return {"id": user_id, "username": username}
+            
+        return {"id": user.id, "username": user.username, "role": user.role}
     except JWTError:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail='Could not validate user'
+            detail='Could not validate token'
         )
