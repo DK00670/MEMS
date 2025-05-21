@@ -69,7 +69,9 @@
   
   .machine-icon {
     font-size: 2rem;
-    color: #00cec9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   
   .machine-details {

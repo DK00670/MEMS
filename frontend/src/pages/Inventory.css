@@ -69,7 +69,9 @@
 
 .inventory-icon {
   font-size: 2rem;
-  color: #00cec9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .inventory-details {

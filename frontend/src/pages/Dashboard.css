@@ -55,9 +55,52 @@
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
 }
 
+.clickable {
+  cursor: pointer;
+  position: relative;
+}
+
+.clickable:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  border-radius: 10px;
+  background-color: transparent;
+  transition: background-color 0.2s ease;
+}
+
+.clickable:hover:after {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.clickable::before {
+  content: "→";
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  color: #00cec9;
+  font-size: 16px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.clickable:hover::before {
+  opacity: 1;
+}
+
 .card-icon {
   font-size: 2rem;
-  color: #00cec9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-icon svg {
+  width: 2rem;
+  height: 2rem;
 }
 
 .card-content h3 {
@@ -90,10 +133,32 @@
   border-radius: 10px;
   padding: 20px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.chart.clickable {
+  cursor: pointer;
+}
+
+.chart.clickable:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
 }
 
 .chart h3 {
   font-size: 1.2rem;
   color: #2d3436;
   margin-bottom: 10px;
+}
+
+.chart-icon {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.chart-icon svg {
+  width: 2.5rem;
+  height: 2.5rem;
 }
