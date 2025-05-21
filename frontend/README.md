@@ -1,18 +1,65 @@
-# Getting Started with Create React App
+# MEMS Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is the frontend application for the Manufacturing ERP Management System (MEMS). It provides a modern, responsive user interface for managing manufacturing operations.
+
+## Architecture
+
+The frontend is built with React and uses:
+
+- **React Router DOM**: For navigation and routing between pages
+- **React Icons**: For all UI icons (replacing emojis)
+- **Axios**: For API communication with the backend
+- **CSS**: For styling components
+
+## Application Structure
+
+```
+src/
+├── components/         # Shared UI components
+│   ├── PrivateRoute.js # Authentication wrapper component
+│   ├── Sidebar.js      # Navigation sidebar
+│   └── Sidebar.css     # Sidebar styling
+│
+├── pages/              # Page components
+│   ├── Dashboard.js    # Main dashboard page
+│   ├── HR.js           # HR management
+│   ├── Inventory.js    # Inventory management 
+│   ├── Production.js   # Production monitoring
+│   └── ...other pages
+│
+├── services/           # Service layer
+│   ├── api.js          # API communication
+│   └── auth.js         # Authentication logic
+│
+├── App.js              # Main application component with routes
+└── index.js            # Application entry point
+```
+
+## Features
+
+### Dashboard
+- Business KPI overview
+- Navigation cards to different sections
+- Performance metrics and charts
+
+### HR Management
+- Employee overview
+- Shift management
+- Profile management
+
+### Inventory Management
+- Stock levels monitoring
+- Low stock alerts
+- Item addition and management
+
+### Production Monitoring
+- Machine status tracking
+- Production tasks
+- Efficiency metrics
 
 ## Available Scripts
 
 In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
 ### `npm test`
 
